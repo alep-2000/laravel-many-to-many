@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Type;
+use App\Models\Tecnology;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -31,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.posts.create', compact('types'));
+        $tecnologies = Tecnology::all();
+        return view('admin.posts.create', compact('types', 'tecnologies'));
     }
 
     /**
@@ -55,6 +57,10 @@ class PostController extends Controller
         $form_data['slug'] = $post->generateSlug($form_data['title']); 
         $post->fill($form_data);
         $post->save();
+
+        if($request->has('tecnologies')){
+            $post->tecnologies()->attach($request->tecnologies);
+        }
 
         return redirect()->route('admin.posts.index');
     }

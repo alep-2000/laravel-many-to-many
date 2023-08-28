@@ -39,10 +39,24 @@
                             <select name="types_id" id="types_id" class="form-control @error('types_id')is-invalid @enderror">
                                 <option value="">Select type</option>
                                 @foreach($types as $type)
-                                    <option value="{{ $type->id }}"> {{  $type->name }} </option>
+                                    <option value="{{ $type->id }}" {{ $type->id == old('types_id') ? 'selected' : '' }}> {{  $type->name }} </option>
                                 @endforeach
                             </select>
                             @error('types_id')
+                                <div class="text-danger"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        <div class="form-group my-3">
+                            <p>Seleziona le tecnologie</p>
+                            @foreach($tecnologies as $tecnology)
+                                <div class="form-check @error('tecnology_id')is-invalid @enderror">
+                                    <input type="checkbox" name="tecnology_id[]" value="{{ $tecnology->id }}" {{ in_array($tecnology->id, old('tecnology_id', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label">
+                                        {{ $tecnology->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                            @error('tecnology_id')
                                 <div class="text-danger"> {{ $message }} </div>
                             @enderror
                         </div>
