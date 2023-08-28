@@ -18,7 +18,11 @@
                     <img src=" {{ asset('storage/'.$post->cover_image) }} ">
                 </div>
                 <div class="col-12">
-                    {{ $post->types->name }}
+                    @if($post->type)
+                        {{ $post->type->name }}
+                    @else
+                        Senza Tipologia
+                    @endif
                 </div>
                 <div class="col-12">
                     <p> {{ $post->content }} </p>
