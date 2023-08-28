@@ -14,7 +14,7 @@ class Post extends Model
 
     protected $fillable = ['title', 'content', 'slug', 'cover_image','types_id'];
 
-    public function type(){
+    public function types(){
         return $this->belongsTo(Type::class);
     }
 

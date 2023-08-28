@@ -50,6 +50,20 @@
                                 <div class="text-danger"> {{ $message }} </div>
                             @enderror
                         </div>
+                        <div class="form-group my-3">
+                            <p>Seleziona le tecnologie</p>
+                            @foreach($tecnologies as $tecnology)
+                                <div class="form-check @error('tecnologies')is-invalid @enderror">
+                                    <input type="checkbox" name="tecnologies[]" value="{{ $tecnology->id }}" {{ in_array($tecnology->id, old('tecnology_id', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label">
+                                        {{ $tecnology->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                            @error('tecnologies')
+                                <div class="text-danger"> {{ $message }} </div>
+                            @enderror
+                        </div>
                         <div class="class-group">
                             <label class="control-label">Content</label>
                             <textarea id="content" name="content" class="form-control" placeholder="Content">{{ old('content') ?? $post->content }}</textarea>

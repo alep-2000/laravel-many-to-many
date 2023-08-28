@@ -85,7 +85,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $types = Type::all();
-        return view('admin.posts.edit', compact('post', 'types'));
+        $tecnologies = Tecnology::all();
+        return view('admin.posts.edit', compact('post', 'types', 'tecnologies'));
     }
 
     /**
@@ -113,6 +114,10 @@ class PostController extends Controller
         $post->update($form_data);
         $post->save();
 
+        if($request->has('tecnologies')){
+            $post->tecnologies()->sync($request->tecnologies);
+        }
+
         return redirect()->route('admin.posts.index');
     }
 
@@ -124,6 +129,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tecnologies()->sync([]);
+
         Storage::delete($post->cover_image);
 
         $post->delete();

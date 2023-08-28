@@ -27,7 +27,7 @@ class UpdatePostRequest extends FormRequest
             'title' => 'required| max:100',
             'cover_image'   => 'image|max:250',
             'types_id'      => 'required|exists:types,id',
-            'tecnology_id'  => 'exists:tecnologies,id'
+            'tecnology_id'  => 'exists:tecnology,id'
         ];
     }
 
